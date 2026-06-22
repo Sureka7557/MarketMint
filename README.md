@@ -1,50 +1,127 @@
-# Welcome to your Expo app 👋
+# 🛒 MarketMint
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+MarketMint is a modern grocery shopping application built with React Native and Expo. It provides a clean, fast, and user-friendly experience for managing grocery shopping, tracking items, and organizing purchases.
 
-## Get started
+## ✨ Features
 
-1. Install dependencies
+* 🔐 Authentication with Clerk
+* 🛍️ Grocery item management
+* 📦 Quantity tracking
+* ✅ Mark items as purchased
+* 🚚 Smart shopping experience
+* 🎨 Modern UI with custom animations
+* 📱 Cross-platform support (Android, iOS, Web)
+* ☁️ Neon PostgreSQL Database
+* 🗄️ Drizzle ORM for database management
 
-   ```bash
-   npm install
-   ```
+## 🛠️ Tech Stack
 
-2. Start the app
+### Frontend
 
-   ```bash
-   npx expo start
-   ```
+* React Native
+* Expo Router
+* TypeScript
+* NativeWind
+* React Native Animated
+* Expo Linear Gradient
 
-In the output, you'll find options to open the app in a
+### Backend & Database
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+* Neon PostgreSQL
+* Drizzle ORM
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Authentication
 
-## Get a fresh project
+* Clerk
 
-When you're ready, run:
+## 📂 Project Structure
 
-```bash
-npm run reset-project
+```text
+app/
+components/
+constants/
+assets/
+lib/
+ └── server/
+      └── db/
+           ├── client.ts
+           ├── schema.ts
+           └── db-actions.ts
+scripts/
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🚀 Getting Started
 
-## Learn more
+### Clone Repository
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+git clone https://github.com/Sureka7557/MarketMint.git
+cd MarketMint
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Install Dependencies
 
-## Join the community
+```bash
+bun install
+```
 
-Join our community of developers creating universal apps.
+### Environment Variables
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Create a `.env` file:
+
+```env
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_key
+EXPO_PUBLIC_DATABASE_URL=your_neon_database_url
+```
+
+### Run Development Server
+
+```bash
+bun start
+```
+
+### Android
+
+```bash
+bun run android
+```
+
+### iOS
+
+```bash
+bun run ios
+```
+
+## 🗄️ Database
+
+Generate migrations:
+
+```bash
+bunx drizzle-kit generate
+```
+
+Push schema:
+
+```bash
+bunx drizzle-kit push
+```
+
+Seed database:
+
+```bash
+bun run seed:grocery
+```
+
+## 📸 Screenshots
+
+Coming Soon
+
+## 👩‍💻 Author
+
+**Sureka**
+
+GitHub: https://github.com/Sureka7557
+
+## 📄 License
+
+This project is licensed under the MIT License.
