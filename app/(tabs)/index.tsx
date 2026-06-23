@@ -21,10 +21,12 @@ import { COLORS } from "@/constants/COLORS";
 import { FONTS } from "@/constants/FONTS";
 import BackgroundDecor from "@/components/BackgroundDecor";
 import TermsAndPrivacy from "@/components/TermsAndPrivacy";
+import { useGroceryStore } from "../store/grocery-store";
 
 export default function WelcomeScreen() {
   const { isLoaded, isSignedIn } = useAuth();
   const router = useRouter();
+  const {isLoading,items}=useGroceryStore()
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [showLockedHint, setShowLockedHint] = useState(false);
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -344,6 +346,7 @@ useEffect(() => {
       </SafeAreaView>
     </LinearGradient>
   );
+  
 }
 
 const styles = StyleSheet.create({
