@@ -43,9 +43,8 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
     set({ isLoading: true, error: null });
     try {
       const res = await fetch("/api/items");
-      const payload = (await res.json()) as ItemsResponse;
-
       if (!res.ok) throw new Error(`Request failed (${res.status})`);
+      const payload = (await res.json()) as ItemsResponse;
       set({ items: payload.items });
     } catch (error) {
       console.error("Error loading items:", error);
@@ -57,6 +56,19 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
 
   addItem: async (input) => {
     set({ error: null });
+
+    const tempId = `temp-${Date.now()}`;
+    const optimisticItem: GroceryItem = {
+      id: tempId,
+      name: input.name,
+      category: input.category,
+      quantity: Math.max(1, input.quantity),
+      priority: input.priority,
+      purchased: false,
+    };
+
+    set((state) => ({ items: [optimisticItem, ...state.items] }));
+
     try {
       const res = await fetch("/api/items", {
         method: "POST",
@@ -68,19 +80,32 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
           priority: input.priority,
         }),
       });
-      const payload = (await res.json()) as ItemResponse;
       if (!res.ok) throw new Error(`Request failed (${res.status})`);
+      const payload = (await res.json()) as ItemResponse;
 
-      set((state) => ({ items: [payload.item, ...state.items] }));
+      set((state) => ({
+        items: state.items.map((item) => (item.id === tempId ? payload.item : item)),
+      }));
       return payload.item;
     } catch (error) {
       console.error("Error adding item:", error);
-      set({ error: "Something went wrong" });
+      set((state) => ({
+        items: state.items.filter((item) => item.id !== tempId), // rollback
+        error: "Something went wrong",
+      }));
     }
   },
+
   updateQuantity: async (id, quantity) => {
     const nextQuantity = Math.max(1, quantity);
+    const previousItems = get().items;
     set({ error: null });
+
+    set((state) => ({
+      items: state.items.map((item) =>
+        item.id === id ? { ...item, quantity: nextQuantity } : item
+      ),
+    }));
 
     try {
       const res = await fetch(`/api/items/${id}`, {
@@ -88,66 +113,77 @@ export const useGroceryStore = create<GroceryStore>((set, get) => ({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ quantity: nextQuantity }),
       });
-      const payload = (await res.json()) as ItemResponse;
       if (!res.ok) throw new Error(`Request failed (${res.status})`);
+      const payload = (await res.json()) as ItemResponse;
+
       set((state) => ({
         items: state.items.map((item) => (item.id === id ? payload.item : item)),
       }));
     } catch (error) {
       console.error("Error updating quantity:", error);
-      set({ error: "Something went wrong" });
+      set({ items: previousItems, error: "Something went wrong" }); 
     }
   },
 
   togglePurchased: async (id) => {
-    const currentItem = get().items.find((item) => item.id === id);
+    const previousItems = get().items;
+    const currentItem = previousItems.find((item) => item.id === id);
     if (!currentItem) return;
 
     const nextPurchased = !currentItem.purchased;
     set({ error: null });
+
+    set((state) => ({
+      items: state.items.map((item) =>
+        item.id === id ? { ...item, purchased: nextPurchased } : item
+      ),
+    }));
+
     try {
       const res = await fetch(`/api/items/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ purchased: nextPurchased }),
       });
-
-      const payload = (await res.json()) as ItemResponse;
       if (!res.ok) throw new Error(`Request failed (${res.status})`);
+      const payload = (await res.json()) as ItemResponse;
 
       set((state) => ({
         items: state.items.map((item) => (item.id === id ? payload.item : item)),
       }));
     } catch (error) {
       console.error("Error toggling purchased:", error);
-      set({ error: "Something went wrong" });
+      set({ items: previousItems, error: "Something went wrong" }); 
     }
   },
 
   removeItem: async (id) => {
+    const previousItems = get().items;
     set({ error: null });
+
+    set((state) => ({ items: state.items.filter((item) => item.id !== id) }));
+
     try {
       const res = await fetch(`/api/items/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error(`Request failed (${res.status})`);
-
-      set((state) => ({ items: state.items.filter((item) => item.id !== id) }));
     } catch (error) {
       console.error("Error removing item:", error);
-      set({ error: "Something went wrong" });
+      set({ items: previousItems, error: "Something went wrong" }); 
     }
   },
 
   clearPurchased: async () => {
+    const previousItems = get().items;
     set({ error: null });
+
+    set((state) => ({ items: state.items.filter((item) => !item.purchased) }));
+
     try {
       const res = await fetch("/api/items/clear-purchased", { method: "POST" });
       if (!res.ok) throw new Error(`Request failed (${res.status})`);
-
-      const items = get().items.filter((item) => !item.purchased);
-      set({ items });
     } catch (error) {
       console.error("Error clearing purchased:", error);
-      set({ error: "Something went wrong" });
+      set({ items: previousItems, error: "Something went wrong" }); 
     }
   },
 }));

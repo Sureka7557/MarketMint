@@ -32,20 +32,17 @@ export default function WelcomeScreen() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
 
-  // Logo entrance
   const logoFade = useRef(new Animated.Value(0)).current;
   const logoScale = useRef(new Animated.Value(0.9)).current;
 
-  // Staggered feature rows
+
   const featureAnims = useRef(
     [0, 1, 2].map(() => new Animated.Value(0))
   ).current;
 
-  // Sign-in button block entrance
   const buttonFade = useRef(new Animated.Value(0)).current;
   const buttonSlide = useRef(new Animated.Value(20)).current;
 
-  // Sign-in button press feedback
   const buttonScale = useRef(new Animated.Value(1)).current;
   const buttonShake = useRef(new Animated.Value(0)).current;
   const hintFade = useRef(new Animated.Value(0)).current;

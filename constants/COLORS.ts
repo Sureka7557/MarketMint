@@ -47,4 +47,11 @@ export const COLORS = {
 gradientPrimary: ["#0B1310", "#14532D"] as const,
 gradientAccent: ["#14532D", "#0B1310"] as const,
 gradientGold: ["#1F1A0F", "#14532D"] as const,
+
+// Grocery Board Card
+boardCard: "#3BE16F",
+boardCardDark: "#25C75A",
+boardText: "#0B1310",
+boardTrack: "rgba(255,255,255,0.35)",
+boardShadow: "rgba(34,197,94,0.4)",
 };
