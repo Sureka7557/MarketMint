@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   categoryText: {
     fontSize: 12,
     fontFamily: FONTS.semiBold,
-    color: COLORS.textSecondary,
+    color: COLORS.white,
   },
   quantityRow: {
     marginTop: 12,

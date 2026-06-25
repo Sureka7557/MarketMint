@@ -36,11 +36,11 @@ export default function HomeScreen() {
       <BackgroundDecor />
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.loader}>
-  <ActivityIndicator
-    size="large"
-    color={COLORS.primary}
-  />
-</View>
+      <ActivityIndicator
+        size="large"
+        color={COLORS.darkOverlay}
+      />
+    </View>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -197,12 +197,12 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.semiBold,
     textTransform: "uppercase",
     letterSpacing: 1,
-    color: COLORS.textSecondary,
+    color: COLORS.boardText,
   },
   listHeaderCount: {
     fontSize: 13,
     fontFamily: FONTS.regular,
-    color: COLORS.textMuted,
+    color: COLORS.boardText,
   },
   listGap: {
     marginTop: 14,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     marginTop: 14,
     fontFamily: FONTS.regular,
     fontSize: 14,
-    color: COLORS.textMuted,
+    color: COLORS.boardText,
     textAlign: "center",
   },
 });

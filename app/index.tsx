@@ -21,7 +21,7 @@ import { COLORS } from "@/constants/COLORS";
 import { FONTS } from "@/constants/FONTS";
 import BackgroundDecor from "@/components/BackgroundDecor";
 import TermsAndPrivacy from "@/components/TermsAndPrivacy";
-import { useGroceryStore } from "../store/grocery-store";
+import { useGroceryStore } from "@/app/store/grocery-store";
 
 export default function WelcomeScreen() {
   const { isLoaded, isSignedIn } = useAuth();
@@ -240,7 +240,6 @@ useEffect(() => {
 
           <View style={styles.spacer} />
 
-          {/* Sign In Button — locked until Terms are agreed to */}
           <Animated.View
             style={[
               styles.authButtonsGroup,

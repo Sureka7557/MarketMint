@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.semiBold,
     textTransform: "uppercase",
     letterSpacing: 1,
-    color: COLORS.textSecondary,
+    color: COLORS.boardText,
   },
   row: {
     marginTop: 12,

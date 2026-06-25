@@ -36,9 +36,6 @@ export default function SignUpScreen() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Entrance animation — logo, header text, card, footer stagger in.
-  // Replays whenever `pendingVerification` flips, so the swap from the
-  // sign-up form to the verification step gets the same gentle reveal.
   const logoFade = useRef(new Animated.Value(0)).current;
   const logoScale = useRef(new Animated.Value(0.85)).current;
   const headerFade = useRef(new Animated.Value(0)).current;
@@ -47,10 +44,9 @@ export default function SignUpScreen() {
   const cardSlide = useRef(new Animated.Value(24)).current;
   const footerFade = useRef(new Animated.Value(0)).current;
 
-  // Button press feedback
+
   const buttonScale = useRef(new Animated.Value(1)).current;
 
-  // Error shake, on the card itself
   const cardShake = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -135,7 +131,6 @@ export default function SignUpScreen() {
     }).start();
   };
 
-  // Password strength calculation
   const getPasswordStrength = (pwd: string) => {
     if (!pwd) return 0;
     let strength = 0;
@@ -149,7 +144,6 @@ export default function SignUpScreen() {
 
   const passwordStrength = getPasswordStrength(password);
 
-  // Strength colors pulled from the theme instead of unrelated hardcoded hex values
   const getStrengthColor = () => {
     if (passwordStrength <= 1) return COLORS.error;
     if (passwordStrength <= 2) return COLORS.warning;
@@ -254,7 +248,7 @@ export default function SignUpScreen() {
                   >
                     <View style={styles.logoContainer}>
                       <Image
-                        source={require("@/assets/images/my_logo.png")}
+                        source={require("@/assets/images/logo.png")}
                         style={styles.logo}
                         resizeMode="cover"
                       />
@@ -319,7 +313,6 @@ export default function SignUpScreen() {
                     </Pressable>
                   </View>
 
-                  {/* Password Strength Indicator */}
                   {password.length > 0 && (
                     <View style={styles.strengthContainer}>
                       <View style={styles.strengthBarsContainer}>
@@ -533,8 +526,8 @@ const styles = StyleSheet.create({
     borderColor: COLORS.primary,
   },
   logo: {
-    width: 150,
-    height: 150,
+    width: 100,
+    height: 130,
   },
   title: {
     fontSize: 28,
@@ -544,7 +537,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 15,
-    color: COLORS.textMuted,
+    color: COLORS.white,
     marginTop: 2,
     textAlign: "center",
     fontFamily: FONTS.regular,
@@ -658,12 +651,12 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   footerText: {
-    color: COLORS.textMuted,
+    color: COLORS.white,
     fontSize: 14,
     fontFamily: FONTS.medium,
   },
   footerLink: {
-    color: COLORS.primaryLight,
+    color: COLORS.darkOverlay,
     fontSize: 14,
     fontFamily: FONTS.extraBold,
   },

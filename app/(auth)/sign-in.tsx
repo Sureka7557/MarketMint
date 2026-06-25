@@ -179,7 +179,7 @@ export default function SignInScreen() {
               >
                 <View style={styles.logoContainer}>
                   <Image
-                    source={require("@/assets/images/my_logo.png")}
+                    source={require("@/assets/images/logo.png")}
                     style={styles.logo}
                     resizeMode="cover"
                   />
@@ -309,8 +309,8 @@ const styles = StyleSheet.create({
     borderColor: COLORS.border,
   },
   logo: {
-    width: 150,
-    height:150,
+    width: 100,
+    height:130,
   },
   title: {
     fontSize: 28,
@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 15,
-    color: COLORS.textMuted,
+    color: COLORS.white,
     marginTop: 2,
     fontFamily: FONTS.regular,
   },
@@ -398,12 +398,12 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   footerText: {
-    color: COLORS.textMuted,
+    color: COLORS.white,
     fontSize: 14,
     fontFamily: FONTS.medium,
   },
   footerLink: {
-    color: COLORS.primaryLight,
+    color: COLORS.darkOverlay,
     fontSize: 14,
     fontFamily: FONTS.extraBold,
   },

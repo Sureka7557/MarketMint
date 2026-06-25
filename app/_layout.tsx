@@ -48,8 +48,6 @@ export default function RootLayout() {
     Poppins_800ExtraBold,
   });
 
-  // Hold the entire app behind the gradient splash until Poppins is ready,
-  // so nothing ever flashes in the system font.
   if (!fontsLoaded) {
     return (
       <LinearGradient

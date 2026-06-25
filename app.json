@@ -4,7 +4,7 @@
     "slug": "MarketMint",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/MarrketMint_logo.png",
+    "icon": "./assets/images/index_logo.png",
     "scheme": "marketmint",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
