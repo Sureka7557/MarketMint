@@ -52,12 +52,15 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   signOutButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 12,
-    backgroundColor: COLORS.error,
+    width: 46,
+    height: 46,
+    borderRadius: 50,
+    borderWidth:1.5,
+    borderColor:COLORS.border,
+    backgroundColor: COLORS.white,
     alignItems: "center",
     justifyContent: "center",
+    padding:3
   },
 });
 
@@ -85,9 +88,9 @@ const UserProfile = () => {
         {/* Avatar */}
         <View style={styles.avatarContainer}>
           <Image
-            source={{ uri: user?.imageUrl }}
-            style={styles.avatarImage}
-          />
+          source={require("@/assets/images/avatar.png")}
+          style={styles.avatarImage}
+        />
         </View>
 
         {/* User Info */}
@@ -104,8 +107,8 @@ const UserProfile = () => {
         >
           <FontAwesome6
             name="right-from-bracket"
-            size={13}
-            color={COLORS.white}
+            size={23}
+            color={COLORS.primaryDark}
           />
         </Pressable>
       </View>

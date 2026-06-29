@@ -1,8 +1,6 @@
 import React from 'react'
 import { StyleSheet, ScrollView } from 'react-native'
 import { useGroceryStore } from '../store/grocery-store'
-import { LinearGradient } from 'expo-linear-gradient'
-import BackgroundDecor from '@/components/BackgroundDecor'
 import { COLORS } from '@/constants/COLORS'
 import { FONTS } from '@/constants/FONTS'
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -17,30 +15,22 @@ const insights = () => {
   const { isLoading, items } = useGroceryStore()
   
   return (
-    <LinearGradient
-      colors={COLORS.gradientPrimary}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.safeArea}
-    >
-      <BackgroundDecor />
-      <SafeAreaView style={styles.safeArea} edges={["top"]}>
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          <UserProfile />
+    <SafeAreaView style={styles.safeArea} edges={["top"]}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <UserProfile />
 
-          <InsightsStatsSection />
+        <InsightsStatsSection />
 
-          <InsightsCategorySection />
+        <InsightsCategorySection />
 
-          <InsightsPrioritySection />
+        <InsightsPrioritySection />
 
-          <ClearCompletedButton />
-        </ScrollView>
-      </SafeAreaView>
-    </LinearGradient>
+        <ClearCompletedButton />
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
@@ -49,6 +39,7 @@ export default insights
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: COLORS.background,
   },
   scrollContent: {
     paddingHorizontal: 16,

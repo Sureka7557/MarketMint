@@ -69,7 +69,7 @@ const PlannerFormCard = () => {
 
   return (
     <LinearGradient
-      colors={[COLORS.card, COLORS.darkCard]}
+      colors={[COLORS.card, COLORS.card]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
       style={styles.container}
@@ -136,7 +136,7 @@ const PlannerFormCard = () => {
               <FontAwesome6
                 name={categoryIcons[category]}
                 size={14}
-                color={selectedCategory === category ? COLORS.white : COLORS.primary}
+                color={selectedCategory === category ? COLORS.white : COLORS.secondary}
               />
               <Text
                 style={[
@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: COLORS.border,
-    backgroundColor: COLORS.darkCard,
+    backgroundColor: COLORS.card,
     paddingHorizontal: 14,
     paddingVertical: 12,
     fontSize: 14,
@@ -261,7 +261,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: COLORS.border,
-    backgroundColor: COLORS.darkCard,
+    backgroundColor: COLORS.card,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: COLORS.border,
-    backgroundColor: COLORS.darkCard,
+    backgroundColor: COLORS.card,
     paddingHorizontal: 14,
     paddingVertical: 12,
     fontSize: 14,
@@ -293,19 +293,19 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: COLORS.border,
-    backgroundColor: COLORS.darkCard,
+    backgroundColor: COLORS.card,
     paddingHorizontal: 12,
     paddingVertical: 8,
    
   },
   categoryChipActive: {
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
     borderColor: COLORS.primary,
   },
   categoryText: {
     fontSize: 12,
     fontFamily: FONTS.medium,
-    color: COLORS.primary,
+    color: COLORS.secondary,
   },
   categoryTextActive: {
     color: COLORS.white,
@@ -324,15 +324,15 @@ const styles = StyleSheet.create({
   },
   priorityLow: {
     borderColor: COLORS.info,
-    backgroundColor: COLORS.darkCard,
+    backgroundColor: COLORS.card,
   },
   priorityMedium: {
-    borderColor: COLORS.accent,
-    backgroundColor: COLORS.darkCard,
+    borderColor: COLORS.primary,
+    backgroundColor: COLORS.card,
   },
   priorityHigh: {
     borderColor: COLORS.error,
-    backgroundColor: COLORS.darkCard,
+    backgroundColor: COLORS.card,
   },
   priorityButtonActive: {
     borderWidth: 2,
@@ -381,7 +381,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     gap: 8,
     borderRadius: 14,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
     paddingVertical: 14,
   },
   addButtonDisabled: {

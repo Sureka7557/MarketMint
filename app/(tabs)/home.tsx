@@ -1,10 +1,10 @@
 import { useUser } from "@clerk/clerk-expo";
+import { ScrollView, StyleSheet, Image, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "@/constants/COLORS";
+
 import { FONTS } from "@/constants/FONTS";
-import BackgroundDecor from "@/components/BackgroundDecor";
 import CompletedItems from "@/components/list/CompletedItems";
 import PendingItemCard from "@/components/list/PendingItems";
 import { useGroceryStore } from "@/app/store/grocery-store";
@@ -27,55 +27,63 @@ export default function HomeScreen() {
   console.log("Pending Items:", pendingItems.length);
   if (isLoading) {
   return (
-    <LinearGradient
-      colors={COLORS.gradientPrimary}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.root}
-    >
-      <BackgroundDecor />
+    <View style={styles.root}>
       <SafeAreaView style={styles.safeArea}>
         <View style={styles.loader}>
       <ActivityIndicator
         size="large"
-        color={COLORS.darkOverlay}
+        color={COLORS.primary}
       />
     </View>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 }
   return (
-    <LinearGradient
-      colors={COLORS.gradientPrimary}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.root}
-    >
-      <BackgroundDecor />
+    <View style={styles.root}>
       <SafeAreaView style={styles.safeArea} edges={["top"]}>
         <ScrollView
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.card}>
-            <Text style={styles.eyebrow}>TODAY</Text>
-            <Text style={styles.header}>Your Grocery Board</Text>
 
-            <View style={styles.statusRow}>
-              <View style={styles.statusDot} />
-              <Text style={styles.status}>{pendingItems.length} pending </Text>
-              <View style={styles.statusDot} />
-              <Text style={styles.status}> {completedCount} completed</Text>
-            </View>
+          <LinearGradient
+            colors={COLORS.gradientPrimary}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.card}
+          >
+            <Image
+              source={require("@/assets/images/Hero.png")}
+              style={styles.cardCornerImage}
+              resizeMode="contain"
+            />
 
-            <View style={styles.progressSection}>
-              <View style={styles.progressTrack}>
-                <View style={[styles.progressFill, { width: `${progress}%` }]} />
-              </View>
-              <Text style={styles.progressLabel}>{progress}%</Text>
+            <View style={styles.content}>
+  <Text style={styles.eyebrow}>TODAY</Text>
+  <Text style={styles.header}>Your Grocery Board</Text>
+
+  <View style={styles.statusRow}>
+    <View style={styles.statusDot_P} />
+    <Text style={styles.status_P}>{pendingItems.length} pending</Text>
+
+    <View style={styles.statusDot_C} />
+    <Text style={styles.status_C}>{completedCount} completed</Text>
+  </View>
+
+  <View style={styles.progressSection}>
+    <View style={styles.progressTrack}>
+      <View
+        style={[
+          styles.progressFill,
+          { width: `${progress}%` },
+        ]}
+      />
+    </View>
+    <Text style={styles.progressLabel}>{progress}%</Text>
+  </View>
             </View>
-          </View>
+</LinearGradient>
 
           <View style={styles.listSection}>
             <View style={styles.listHeaderRow}>
@@ -97,13 +105,14 @@ export default function HomeScreen() {
           <CompletedItems />
         </ScrollView>
       </SafeAreaView>
-    </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    backgroundColor: COLORS.background,
   },
   safeArea: {
     flex: 1,
@@ -119,33 +128,66 @@ const styles = StyleSheet.create({
   alignItems: "center",
 },
   card: {
-    backgroundColor: COLORS.primary,
     borderRadius: 24,
-    borderWidth: 1,
-    borderColor: COLORS.border,
     padding: 24,
-    shadowColor: "#000000",
+    overflow: "hidden",
+    position: "relative",
+    minHeight: 170,
+    borderWidth: 1,
+    borderColor: COLORS.boardCardDark,
+    shadowColor: COLORS.boardShadow,
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.35,
     shadowRadius: 16,
     elevation: 10,
   },
+  content: {
+    width: "60%",
+    zIndex: 2,
+  },
+  cardCornerImage: {
+    position: "absolute",
+    right: -20,
+    top: -10,
+    width: 280,
+    height: 250,
+    zIndex: 1,
+  },
   eyebrow: {
-    color: COLORS.boardText,
+    color: "black",
     fontFamily: FONTS.semiBold,
     fontSize: 12,
     letterSpacing: 1.5,
+    textShadowColor: "#0000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   header: {
-    color: COLORS.boardText,
-    fontFamily: FONTS.extraBold,
-    fontSize: 28,
+    color: "black",
+    fontFamily: FONTS.bold,
+    fontSize: 20,
     marginTop: 6,
+    textShadowColor: "#0000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
-  status: {
-    color: COLORS.boardText,
-    fontFamily: FONTS.regular,
-    fontSize: 14,
+  status_C: {
+    color:  COLORS.text,
+    fontFamily: FONTS.medium,
+    fontSize: 12,
+    textShadowColor: "#0000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
+    marginRight: 3,
+  },
+   status_P: {
+    color:  COLORS.text,
+    fontFamily: FONTS.medium,
+    fontSize: 12,
+    textShadowColor: "#0000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
+    marginRight: 3,
   },
   statusRow: {
     flexDirection: "row",
@@ -153,12 +195,24 @@ const styles = StyleSheet.create({
     marginTop: 12,
     padding: 1,
   },
-  statusDot: {
-    width: 6,
-    height: 6,
+  statusDot_C: {
+    width: 8,
+    height: 8,
     borderRadius: 50,
-    backgroundColor: COLORS.secondary,
-    marginRight: 8,
+    backgroundColor: COLORS.primaryDark,
+    borderColor:COLORS.boardTrack,
+    borderWidth: 1,
+    marginRight: 3,
+  },
+    statusDot_P: {
+    width: 8,
+    height: 8,
+    borderRadius: 50,
+    backgroundColor: COLORS.white,
+    borderColor:COLORS.boardTrack,
+    borderWidth: 1,
+    marginRight: 3,
+   
   },
   progressSection: {
     flexDirection: "row",
@@ -175,13 +229,16 @@ const styles = StyleSheet.create({
   progressFill: {
     height: "100%",
     borderRadius: 999,
-    backgroundColor: COLORS.darkOverlay,
+    backgroundColor: COLORS.primaryDark,    
   },
   progressLabel: {
-    color: COLORS.boardText,
+    color: COLORS.text,
     fontFamily: FONTS.semiBold,
     fontSize: 13,
     marginLeft: 10,
+    textShadowColor: "#0000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   listSection: {
     marginTop: 24,
@@ -197,12 +254,12 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.semiBold,
     textTransform: "uppercase",
     letterSpacing: 1,
-    color: COLORS.boardText,
+    color: COLORS.textMuted,
   },
   listHeaderCount: {
     fontSize: 13,
     fontFamily: FONTS.regular,
-    color: COLORS.boardText,
+    color: COLORS.textMuted,
   },
   listGap: {
     marginTop: 14,
@@ -212,7 +269,7 @@ const styles = StyleSheet.create({
     marginTop: 14,
     fontFamily: FONTS.regular,
     fontSize: 14,
-    color: COLORS.boardText,
+    color: COLORS.textMuted,
     textAlign: "center",
   },
 });

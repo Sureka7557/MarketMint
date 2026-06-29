@@ -58,8 +58,10 @@ const styles = StyleSheet.create({
   progressBarContainer: {
     overflow: "hidden",
     borderRadius: 999,
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.white,
     height: 8,
+    borderColor:"#807F7F",
+    borderWidth:0.5
   },
   progressBar: {
     height: 8,
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
   emptyState: {
     marginTop: 12,
     borderRadius: 16,
-    backgroundColor: COLORS.secondaryLight,
+    backgroundColor: COLORS.secondary,
     paddingHorizontal: 16,
     paddingVertical: 12,
   },

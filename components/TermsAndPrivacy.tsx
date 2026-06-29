@@ -45,7 +45,7 @@ export default function TermsAndPrivacy({ agreed, onAgree }: TermsAndPrivacyProp
         <Text style={styles.termsText}>
           {agreed && (
             <Text style={styles.agreedBadge}>
-              <Ionicons name="checkmark-circle" size={13} color={COLORS.primary} />
+              <Ionicons name="checkmark-circle" size={13} color={COLORS.primaryDark} />
               {"  Agreed  ·  "}
             </Text>
           )}
@@ -186,18 +186,18 @@ const styles = StyleSheet.create({
   },
   termsText: {
     fontSize: 12,
-    color: COLORS.textMuted,
+    color: COLORS.primaryDark,
     textAlign: "center",
     lineHeight: 18,
     fontFamily: FONTS.medium,
   },
   agreedBadge: {
-    color: COLORS.primary,
+    color: COLORS.primaryDark,
     fontFamily: FONTS.bold,
     fontSize: 12,
   },
   termsLink: {
-    color: COLORS.primaryLight,
+    color: COLORS.primaryDark,
     fontFamily: FONTS.bold,
   },
   // Modal Styles

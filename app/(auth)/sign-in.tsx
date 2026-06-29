@@ -1,12 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useSignIn } from "@clerk/clerk-expo";
-import { LinearGradient } from "expo-linear-gradient";
 import { Link, useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Animated,
+  Easing,
   Image,
+  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -20,7 +21,6 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLORS } from "@/constants/COLORS";
 import { FONTS } from "@/constants/FONTS";
-import BackgroundDecor from "@/components/BackgroundDecor";
 
 export default function SignInScreen() {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -43,6 +43,9 @@ export default function SignInScreen() {
 
   // Button press feedback
   const buttonScale = useRef(new Animated.Value(1)).current;
+
+  // Continuous ambient animation — gentle logo float
+  const logoBob = useRef(new Animated.Value(0)).current;
 
   // Error shake, on the card itself
   const cardShake = useRef(new Animated.Value(0)).current;
@@ -103,6 +106,30 @@ export default function SignInScreen() {
     ]).start();
   }, [error]);
 
+  // Ambient loop — gentle floating logo
+  useEffect(() => {
+    const bobLoop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(logoBob, {
+          toValue: -8,
+          duration: 1400,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(logoBob, {
+          toValue: 0,
+          duration: 1400,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ])
+    );
+    bobLoop.start();
+    return () => {
+      bobLoop.stop();
+    };
+  }, []);
+
   const onPressIn = () => {
     Animated.spring(buttonScale, {
       toValue: 0.96,
@@ -152,18 +179,16 @@ export default function SignInScreen() {
   };
 
   return (
-    <LinearGradient
-      colors={COLORS.gradientPrimary}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
+    <ImageBackground
+      source={require("@/assets/images/signpage.png")}
       style={styles.safeArea}
+      resizeMode="cover"
     >
-      <BackgroundDecor />
-
       <SafeAreaView style={styles.safeAreaInner}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle="dark-content" />
         <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 20}
           style={{ flex: 1 }}
         >
           <ScrollView
@@ -174,7 +199,7 @@ export default function SignInScreen() {
               <Animated.View
                 style={{
                   opacity: logoFade,
-                  transform: [{ scale: logoScale }],
+                  transform: [{ scale: logoScale }, { translateY: logoBob }],
                 }}
               >
                 <View style={styles.logoContainer}>
@@ -276,13 +301,14 @@ export default function SignInScreen() {
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </LinearGradient>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    backgroundColor: COLORS.background,
   },
   safeAreaInner: {
     flex: 1,
@@ -320,7 +346,7 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 15,
-    color: COLORS.white,
+    color: COLORS.textSecondary,
     marginTop: 2,
     fontFamily: FONTS.regular,
   },
@@ -398,12 +424,12 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   footerText: {
-    color: COLORS.white,
+    color: COLORS.textSecondary,
     fontSize: 14,
     fontFamily: FONTS.medium,
   },
   footerLink: {
-    color: COLORS.darkOverlay,
+    color: COLORS.secondary,
     fontSize: 14,
     fontFamily: FONTS.extraBold,
   },

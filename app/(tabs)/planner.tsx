@@ -1,12 +1,10 @@
 import { View, Text } from "react-native";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ImageBackground } from "react-native";
 import React, { useEffect } from "react";
-import { LinearGradient } from "expo-linear-gradient";
 import { KeyboardAvoidingView, ScrollView, Platform } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
 import PlannerFormCard from "@/components/planner/PlannerFormCard";
 import PlannerHeroImage from "@/components/planner/PlannerHeroImage";
-import BackgroundDecor from "@/components/BackgroundDecor";
 import { useGroceryStore } from "@/app/store/grocery-store";
 import { COLORS } from "@/constants/COLORS";
 import { FONTS } from "@/constants/FONTS";
@@ -27,13 +25,7 @@ const PlannerScreen = () => {
     .reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <LinearGradient
-      colors={COLORS.gradientPrimary}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.gradient}
-    >
-      <BackgroundDecor />
+    <View style={styles.gradient}>
       <KeyboardAvoidingView
   style={{ flex: 1 }}
   behavior={Platform.OS === "ios" ? "padding" : undefined}
@@ -43,8 +35,14 @@ const PlannerScreen = () => {
     showsVerticalScrollIndicator={false}
     keyboardShouldPersistTaps="handled"
   >
-      {/* Header Card */}
-      <View style={styles.headerCard}>
+          {/* Header Card */}
+      <ImageBackground
+        source={require("@/assets/images/planner.png")}
+        style={styles.headerCard}
+        imageStyle={styles.headerCardImage}
+        resizeMode="cover"
+      >
+        <View style={styles.headerCardOverlay} />
         <View style={styles.headerContent}>
           <View style={styles.headerText}>
             <Text style={styles.headerLabel}>Grocery planner</Text>
@@ -53,9 +51,6 @@ const PlannerScreen = () => {
               Organize your next grocery run with categories, quantities, and
               priority in one place.
             </Text>
-          </View>
-          <View style={styles.headerIcon}>
-            <FontAwesome6 name="wand-magic-sparkles" size={18} color={COLORS.white} />
           </View>
         </View>
 
@@ -74,7 +69,7 @@ const PlannerScreen = () => {
             <Text style={styles.statValue}>{totalQuantity}</Text>
           </View>
         </View>
-      </View>
+      </ImageBackground>
 
       
       <PlannerHeroImage />
@@ -88,11 +83,11 @@ const PlannerScreen = () => {
       </View>
 
    
-      <PlannerFormCard />
+      <PlannerFormCard/>
      </ScrollView>
  </KeyboardAvoidingView>
 
-    </LinearGradient>
+    </View>
   );
 };
 
@@ -101,6 +96,7 @@ export default PlannerScreen;
 const styles = StyleSheet.create({
   gradient: {
     flex: 1,
+    backgroundColor: COLORS.background,
   },
   scrollContent: {
     paddingHorizontal: 20,
@@ -110,11 +106,20 @@ const styles = StyleSheet.create({
   headerCard: {
     gap: 16,
     borderRadius: 24,
-    borderWidth: 1,
-    borderColor: COLORS.border,
     backgroundColor: COLORS.card,
     padding: 20,
-   
+    overflow: "hidden",
+    marginTop:45
+  },
+  headerCardImage: {
+    borderRadius: 24,
+    borderWidth: 1.5,
+    borderColor: COLORS.primaryDark,
+  },
+  headerCardOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(0,0,0,0.1)",
+    borderRadius: 24,
   },
   headerContent: {
     flexDirection: "row",
@@ -124,34 +129,34 @@ const styles = StyleSheet.create({
   headerText: {
     flex: 1,
     paddingRight: 16,
+    
   },
   headerLabel: {
     fontSize: 11,
     fontFamily: FONTS.semiBold,
     letterSpacing: 1.2,
-    color: COLORS.textMuted,
+    color: "rgba(255,255,255,0.9)",
     textTransform: "uppercase",
+    textShadowColor: "#1B5E20",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   headerTitle: {
     marginTop: 4,
     fontSize: 28,
     fontFamily: FONTS.bold,
     lineHeight: 36,
-    color: COLORS.text,
+    color: COLORS.white,
+     textShadowColor: "#1B5E20",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   headerDescription: {
     marginTop: 8,
     fontSize: 14,
     lineHeight: 20,
-    color: COLORS.textMuted,
-  },
-  headerIcon: {
-    width: 48,
-    height: 48,
-    borderRadius: 16,
-    backgroundColor: COLORS.primary,
-    justifyContent: "center",
-    alignItems: "center",
+    color: "rgba(255,255,255,0.9)",
+  
   },
   statsGrid: {
     flexDirection: "row",
@@ -161,22 +166,22 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: COLORS.border,
-    backgroundColor: COLORS.darkCard,
+    borderColor: "rgba(255,255,255,0.3)",
+    backgroundColor: "rgba(255,255,255,0.15)",
     padding: 12,
   },
   statLabel: {
     fontSize: 9,
     fontFamily: FONTS.semiBold,
     letterSpacing: 1,
-    color: COLORS.textMuted,
+    color: "rgba(255,255,255,0.8)",
     textTransform: "uppercase",
   },
   statValue: {
     marginTop: 4,
     fontSize: 18,
     fontFamily: FONTS.bold,
-    color: COLORS.text,
+    color: COLORS.white,
   },
   sectionHeader: {
     paddingHorizontal: 4,
@@ -185,12 +190,12 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: FONTS.semiBold,
     letterSpacing: 1,
-    color: COLORS.white,
+    color: COLORS.secondary,
     textTransform: "uppercase",
   },
   sectionDescription: {
     marginTop: 4,
     fontSize: 14,
-    color: COLORS.white,
+    color: COLORS.textMuted,
   },
 });

@@ -2,12 +2,25 @@ import { GroceryItem, useGroceryStore } from "@/app/store/grocery-store";
 import { COLORS } from "@/constants/COLORS";
 import { FONTS } from "@/constants/FONTS";
 import { FontAwesome6 } from "@expo/vector-icons";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View} from "react-native";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const PRIORITY_STYLES = {
-  low: { bg: COLORS.overlayLight, text: COLORS.primary },
-  medium: { bg: COLORS.overlayGold, text: COLORS.gold },
-  high: { bg: "rgba(220, 38, 38, 0.15)", text: COLORS.accent },
+  low: {
+    bg: COLORS.priorityLowLight,
+    text: COLORS.priorityLow,
+    border: COLORS.priorityLowBorder,
+  },
+  medium: {
+    bg: COLORS.priorityMediumLight,
+    text: COLORS.priorityMedium,
+    border: COLORS.priorityMediumBorder,
+  },
+  high: {
+    bg: COLORS.priorityHighLight,
+    text: COLORS.priorityHigh,
+    border: COLORS.priorityHighBorder,
+  },
 };
 
 const PendingItemCard = ({ item }: { item: GroceryItem }) => {
@@ -22,11 +35,26 @@ const PendingItemCard = ({ item }: { item: GroceryItem }) => {
         <View style={styles.content}>
           <View style={styles.titleRow}>
             <Text style={styles.itemName}>{item.name}</Text>
-            <View style={[styles.priorityPill, { backgroundColor: priority.bg }]}>
-              <Text style={[styles.priorityText, { color: priority.text }]}>
-                {item.priority}
-              </Text>
-            </View>
+            <View
+            style={[
+              styles.priorityPill,
+              {
+                backgroundColor: priority.bg,
+                borderColor: priority.border,
+              },
+            ]}
+>
+  <Text
+    style={[
+      styles.priorityText,
+      {
+        color: priority.text,
+      },
+    ]}
+  >
+    {item.priority.toUpperCase()}
+  </Text>
+</View>
           </View>
 
           <View style={styles.categoryRow}>
@@ -52,9 +80,12 @@ const PendingItemCard = ({ item }: { item: GroceryItem }) => {
           </View>
         </View>
 
-        <Pressable style={styles.deleteButton} onPress={() => removeItem(item.id)}>
-          <FontAwesome6 name="trash" size={13} color={COLORS.accent} />
-        </Pressable>
+       <Pressable
+        style={styles.deleteButton}
+        onPress={() => removeItem(item.id)}
+      >
+       <MaterialCommunityIcons name="delete" size={24} color="black" style={styles.deleteIcon}/>
+      </Pressable>
       </View>
     </View>
   );
@@ -64,7 +95,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: 24,
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: COLORS.primaryLight,
     backgroundColor: COLORS.card,
     padding: 16,
   },
@@ -101,6 +132,7 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     paddingHorizontal: 12,
     paddingVertical: 4,
+    borderWidth: StyleSheet.hairlineWidth,
   },
   priorityText: {
     fontSize: 11,
@@ -138,7 +170,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: COLORS.border,
-    backgroundColor: COLORS.darkCard,
+    backgroundColor: COLORS.card,
   },
   quantityText: {
     minWidth: 36,
@@ -152,9 +184,13 @@ const styles = StyleSheet.create({
     width: 36,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 12,
-    backgroundColor: "rgba(220, 38, 38, 0.15)",
   },
+   deleteIcon: {
+  width: 30,
+  height:30,
+  color:COLORS.primaryDark,
+  
+}
 });
 
 export default PendingItemCard;

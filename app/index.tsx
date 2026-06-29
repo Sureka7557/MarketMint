@@ -4,11 +4,12 @@ import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
 import { useEffect, useState,useRef } from "react";
 import GradientTitle from "@/components/GradiantTitle";
-import { Animated } from "react-native";
+import { Animated, Easing } from "react-native";
 
 import {
   ActivityIndicator,
   Image,
+  ImageBackground,
   Pressable,
   ScrollView,
   StatusBar,
@@ -46,6 +47,17 @@ export default function WelcomeScreen() {
   const buttonScale = useRef(new Animated.Value(1)).current;
   const buttonShake = useRef(new Animated.Value(0)).current;
   const hintFade = useRef(new Animated.Value(0)).current;
+
+  // Continuous ambient animation — gentle logo float
+  const logoBob = useRef(new Animated.Value(0)).current;
+
+  // Floating vegetable animations
+  const vegBob1 = useRef(new Animated.Value(0)).current;
+  const vegBob2 = useRef(new Animated.Value(0)).current;
+  const vegBob3 = useRef(new Animated.Value(0)).current;
+  const vegBob4 = useRef(new Animated.Value(0)).current;
+  const vegBob5 = useRef(new Animated.Value(0)).current;
+  const vegBob6 = useRef(new Animated.Value(0)).current;
 
   const features = [
     "Fresh, quality produce daily",
@@ -112,6 +124,157 @@ useEffect(() => {
     }
   }, [agreedToTerms]);
 
+  // Ambient loop — gentle floating logo
+  useEffect(() => {
+    const bobLoop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(logoBob, {
+          toValue: -8,
+          duration: 1500,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(logoBob, {
+          toValue: 0,
+          duration: 1500,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ])
+    );
+    bobLoop.start();
+    return () => {
+      bobLoop.stop();
+    };
+  }, []);
+
+  // Vegetable floating animations
+  useEffect(() => {
+    const veg1Loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(vegBob1, {
+          toValue: -12,
+          duration: 2000,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(vegBob1, {
+          toValue: 0,
+          duration: 2000,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ])
+    );
+    veg1Loop.start();
+    return () => veg1Loop.stop();
+  }, []);
+
+  useEffect(() => {
+    const veg2Loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(vegBob2, {
+          toValue: -10,
+          duration: 2200,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(vegBob2, {
+          toValue: 0,
+          duration: 2200,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ])
+    );
+    veg2Loop.start();
+    return () => veg2Loop.stop();
+  }, []);
+
+  useEffect(() => {
+    const veg3Loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(vegBob3, {
+          toValue: -14,
+          duration: 2400,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(vegBob3, {
+          toValue: 0,
+          duration: 2400,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ])
+    );
+    veg3Loop.start();
+    return () => veg3Loop.stop();
+  }, []);
+
+  useEffect(() => {
+    const veg4Loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(vegBob4, {
+          toValue: -11,
+          duration: 2100,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(vegBob4, {
+          toValue: 0,
+          duration: 2100,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ])
+    );
+    veg4Loop.start();
+    return () => veg4Loop.stop();
+  }, []);
+
+  useEffect(() => {
+    const veg5Loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(vegBob5, {
+          toValue: -13,
+          duration: 2300,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(vegBob5, {
+          toValue: 0,
+          duration: 2300,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ])
+    );
+    veg5Loop.start();
+    return () => veg5Loop.stop();
+  }, []);
+
+  useEffect(() => {
+    const veg6Loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(vegBob6, {
+          toValue: -9,
+          duration: 1900,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(vegBob6, {
+          toValue: 0,
+          duration: 1900,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ])
+    );
+    veg6Loop.start();
+    return () => veg6Loop.stop();
+  }, []);
+
   const onButtonPressIn = () => {
     Animated.spring(buttonScale, {
       toValue: 0.96,
@@ -138,36 +301,30 @@ useEffect(() => {
 
   if (!isLoaded) {
     return (
-      <LinearGradient
-        colors={COLORS.gradientPrimary}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
+      <ImageBackground
+        source={require("@/assets/images/index.png")}
         style={[styles.safeArea, styles.centerAll]}
+        resizeMode="cover"
       >
         <ActivityIndicator color={COLORS.primary} size="large" />
-      </LinearGradient>
+      </ImageBackground>
     );
   }
 
   return (
-    <LinearGradient
-      colors={COLORS.gradientPrimary}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
+    <ImageBackground
+      source={require("@/assets/images/index.png")}
       style={styles.safeArea}
+      resizeMode="cover"
     >
-      <BackgroundDecor />
-
       <SafeAreaView style={styles.safeAreaInner}>
-        <StatusBar barStyle="light-content" />
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-        
-          {/* Welcome Section */}
-          <View style={styles.welcomeSection}>
-                <Animated.View
+            <StatusBar barStyle="dark-content" />
+            <ScrollView
+              contentContainerStyle={styles.scrollContent}
+              showsVerticalScrollIndicator={false}
+            >
+            <View style={styles.welcomeSection}>
+          <Animated.View
           style={{
             opacity: fadeAnim,
             transform: [{ translateY: slideAnim }],
@@ -188,57 +345,163 @@ useEffect(() => {
           Fresh Groceries. Smarter Shopping.
         </Text>
       </Animated.View>
-            {/* Logo Section */}
-          <View style={styles.logoWrapper}>
-            <Animated.View
-              style={{
-                opacity: logoFade,
-                transform: [{ scale: logoScale }],
-              }}
-            >
-              <View style={styles.logoContainer}>
-                <Image
-                  source={require("@/assets/images/index.png")}
-                  style={styles.logo}
-                  resizeMode="cover"
-                />
-              </View>
-            </Animated.View>
-          </View>
 
-       
-          {/* Features */}
-          <View style={styles.featuresContainer}>
-            {features.map((label, i) => (
-              <Animated.View
-                key={label}
-                style={{
-                  opacity: featureAnims[i],
-                  transform: [
-                    {
-                      translateY: featureAnims[i].interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [18, 0],
-                      }),
-                    },
-                  ],
-                }}
-              >
-                <View style={styles.featureItem}>
-                  <View style={styles.featureBullet}>
-                    <Ionicons
-                      name="checkmark"
-                      size={16}
-                      color={COLORS.primary}
-                    />
-                  </View>
-                  <Text style={styles.featureItemText}>{label}</Text>
-                </View>
-              </Animated.View>
-            ))}
-          </View>
+      {/* Girl Model with Floating Vegetables */}
+      <View style={styles.girlModelContainer}>
 
-          <View style={styles.spacer} />
+
+         {/* orange - Top Right */}
+        <Animated.View
+          style={{
+            position: "absolute",
+            right: 150,
+            top: 0,
+            transform: [
+              { translateY: vegBob2 },
+              { rotate: "5deg" },
+            ],
+          }}
+        >
+          <Image
+            source={require("@/assets/images/orange.png")}
+            style={styles.floatingVegSmall}
+            resizeMode="contain"
+          />
+        </Animated.View>
+
+        {/* Capsicum - Top Left */}
+        <Animated.View
+          style={{
+            position: "absolute",
+            left: 15,
+            top: 70,
+            transform: [
+              { translateY: vegBob1 },
+              { rotate: "-8deg" },
+            ],
+          }}
+        >
+          <Image
+            source={require("@/assets/images/capsicum.png")}
+            style={styles.floatingVegSmall}
+            resizeMode="contain"
+          />
+        </Animated.View>
+
+        {/* Broccoli - Bottom Left */}
+        <Animated.View
+          style={{
+            position: "absolute",
+            left: 15,
+            bottom: 140,
+            transform: [
+              { translateY: vegBob3 },
+              { rotate: "6deg" },
+            ],
+          }}
+        >
+          <Image
+            source={require("@/assets/images/broccoli.png")}
+            style={styles.floatingVegSmall}
+            resizeMode="contain"
+          />
+        </Animated.View>
+
+        {/* greenapple - Top Right */}
+        <Animated.View
+          style={{
+            position: "absolute",
+            right: 15,
+            top: 70,
+            transform: [
+              { translateY: vegBob2 },
+              { rotate: "5deg" },
+            ],
+          }}
+        >
+          <Image
+            source={require("@/assets/images/greenapple.png")}
+            style={styles.floatingVegSmall}
+            resizeMode="contain"
+          />
+        </Animated.View>
+
+        {/* Tomato - Bottom Right */}
+        <Animated.View
+          style={{
+            position: "absolute",
+            right: 10,
+            bottom: 140,
+            transform: [
+              { translateY: vegBob4 },
+              { rotate: "-7deg" },
+            ],
+          }}
+        >
+          <Image
+            source={require("@/assets/images/tomato.png")}
+            style={styles.floatingVegSmall}
+            resizeMode="contain"
+          />
+        </Animated.View>
+
+        {/* Banana - Left Middle */}
+        <Animated.View
+          style={{
+            position: "absolute",
+            left: -10,
+            top: "40%",
+            transform: [
+              { translateY: vegBob5 },
+              { rotate: "-12deg" },
+            ],
+          }}
+        >
+          <Image
+            source={require("@/assets/images/banana.png")}
+            style={styles.floatingVegSmall}
+            resizeMode="contain"
+          />
+        </Animated.View>
+
+        {/* yellowCapsicum - Right Middle */}
+        <Animated.View
+          style={{
+            position: "absolute",
+            right: -10,
+            top: "40%",
+            transform: [
+              { translateY: vegBob6 },
+              { rotate: "10deg" },
+            ],
+          }}
+        >
+          <Image
+            source={require("@/assets/images/yellowCapsicum.png")}
+            style={styles.floatingVegSmall}
+            resizeMode="contain"
+          />
+        </Animated.View>
+
+        {/* Girl in Center */}
+        <View>
+          <Image
+            source={require("@/assets/images/model.png")}
+            style={styles.girlModel}
+            resizeMode="contain"
+                  />
+          <LinearGradient
+          colors={[
+            "transparent",
+            "#BED1E9",
+            "transparent",
+          ]}
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
+          style={styles.girlBottomLine}
+        />
+        </View>
+      </View>
 
           <Animated.View
             style={[
@@ -338,15 +601,20 @@ useEffect(() => {
             agreed={agreedToTerms}
             onAgree={() => setAgreedToTerms(true)}
           />
-        </ScrollView>
-      </SafeAreaView>
-    </LinearGradient>
+
+          
+            </ScrollView>
+          </SafeAreaView>
+    </ImageBackground>
   );
   
 }
 
 const styles = StyleSheet.create({
   safeArea: {
+    flex: 1,
+  },
+  backgroundImage: {
     flex: 1,
   },
   safeAreaInner: {
@@ -359,49 +627,30 @@ const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     paddingHorizontal: 24,
-    paddingTop: 28,
-    paddingBottom: 32,
+    paddingTop: 18,
+    paddingBottom: 28,
   },
-  logoWrapper: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 32,
+  card: {
+    backgroundColor: COLORS.white,
+    borderRadius: 18,
+    overflow: "hidden",
+    shadowColor: COLORS.boardShadow,
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.35,
+    shadowRadius: 16,
+    elevation: 10,
+    paddingHorizontal: 0,
   },
- logoContainer: {
-  width: 300,
-  height: 250,
-  borderRadius: 20,
-  overflow: "hidden", // important
-  backgroundColor: COLORS.card,
-  borderWidth: 1.5,
-  borderColor: COLORS.border,
-  padding:5
-},
-
-logo: {
-  width: "100%",
-  height: "100%",
-},
   welcomeSection: {
     alignItems: "center",
-    marginBottom: 16,
   },
-  mainTitle: {
-    fontSize: 32,
-    fontFamily: FONTS.extraBold,
-    color: COLORS.text,
-    textAlign: "center",
-    letterSpacing: 0.5,
-  },
-
  tagline: {
-  fontSize: 16,
+  fontSize: 14,
   color: COLORS.textSecondary,
   textAlign: "center",
   fontFamily: FONTS.medium,
   letterSpacing: 0.5,
-  marginTop: 12,
-  marginBottom: 12,
+  marginTop: 12
 },
 titleDivider: {
   width: 80,
@@ -411,39 +660,6 @@ titleDivider: {
   alignSelf: "center",
   marginVertical: 8,
 },
-  featuresContainer: {
-    marginBottom: 32,
-    gap: 12,
-  },
-  featureItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: COLORS.card,
-    paddingVertical: 12,
-    paddingHorizontal: 14,
-    borderRadius: 12,
-    borderWidth: 1.5,
-    borderColor: COLORS.border,
-  },
-  featureBullet: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    backgroundColor: COLORS.featureBullet,
-    alignItems: "center",
-    justifyContent: "center",
-    marginRight: 12,
-  },
-  featureItemText: {
-    fontSize: 14,
-    color: COLORS.text,
-    fontFamily: FONTS.semiBold,
-    flex: 1,
-  },
-  spacer: {
-    flex: 1,
-    minHeight: 20,
-  },
   authButtonsGroup: {
     marginBottom: 24,
   },
@@ -476,7 +692,7 @@ titleDivider: {
     letterSpacing: 0.6,
   },
   authButtonTextDisabled: {
-    color: COLORS.textMuted,
+    color: COLORS.primaryDark,
   },
   lockedHint: {
     color: COLORS.gold,
@@ -484,5 +700,43 @@ titleDivider: {
     fontFamily: FONTS.semiBold,
     textAlign: "center",
     marginTop: 10,
+  },
+  floatingVegetablesContainer: {
+    
+    marginVertical: 20,
+    position: "relative",
+    justifyContent: "center",
+    alignItems: "center",
+
+  },
+  floatingVeg: {
+    width: 100,
+    height: 100,
+  },
+  girlModelContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 30,
+    marginBottom: 0,
+    position: "relative",
+    width: "100%",
+    height: 550,
+  },
+  girlBottomLine: {
+      width: 180,
+      height: 6,
+      borderRadius: 999,
+      alignSelf: "center",        
+      marginTop: -18,
+
+  },
+  girlModel: {
+    width: 280,
+    height: 450,
+    borderRadius:50
+  },
+  floatingVegSmall: {
+    width: 80,
+    height: 80,
   },
 });

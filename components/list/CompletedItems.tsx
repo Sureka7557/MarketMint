@@ -3,7 +3,7 @@ import { COLORS } from "@/constants/COLORS";
 import { FONTS } from "@/constants/FONTS";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 const CompletedItems = () => {
   const { removeItem, togglePurchased, items } = useGroceryStore();
   const completedItems = items.filter((item) => item.purchased);
@@ -24,12 +24,12 @@ const CompletedItems = () => {
             </Pressable>
             <Text style={styles.itemName}>{item.name}</Text>
           </View>
-          <Pressable
-            onPress={() => removeItem(item.id)}
-            style={styles.deleteButton}
-          >
-            <FontAwesome6 name="trash" size={12} color={COLORS.accent} />
-          </Pressable>
+           <Pressable
+                  style={styles.deleteButton}
+                  onPress={() => removeItem(item.id)}
+                >
+                  <MaterialCommunityIcons name="delete" size={24} color="black" style={styles.deleteIcon}/>
+                </Pressable>
         </View>
       ))}
     </View>
@@ -52,6 +52,9 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     letterSpacing: 1,
     color: COLORS.boardText,
+    textShadowColor: "#0000",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   row: {
     marginTop: 12,
@@ -84,14 +87,20 @@ const styles = StyleSheet.create({
     color: COLORS.textMuted,
     textDecorationLine: "line-through",
   },
-  deleteButton: {
-    height: 32,
-    width: 32,
+   deleteButton: {
+    height: 36,
+    width: 36,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 12,
-    backgroundColor: "rgba(220, 38, 38, 0.15)",
+    borderRadius: 8,
+    backgroundColor: COLORS.white,
+
   },
+   deleteIcon: {
+  width: 30,
+  height:30,
+  color:COLORS.primaryDark 
+}
 });
 
 export default CompletedItems;

@@ -1,57 +1,87 @@
 export const COLORS = {
-  // Base Colors
-  background: "#F8F5F0",
+  // Base
+  background: "#F3F2F2",
+  backgroundAlt: "#FAFAFA",
   card: "#FFFFFF",
-  primary: "#7A9B76",
-  secondary: "#5C7A57",
-  accent: "#D4A373",
-  gold: "#C9A227",
-  text: "#2F3A30",
+  white: "#FFFFFF",
+  
+
+  // Primary Green
+  primary: "#92D256",
+  secondary: "#74B83D",
+  primaryDark: "#5E9930",
+  primaryLight: "#B4E37F",
+
+  // Accent
+  accent: "#C9EA9A",
+  accentLight: "#EAF8D8",
+
+  // Text
+  text: "#1F2937",
   textSecondary: "#6B7280",
   textMuted: "#9CA3AF",
-  border: "#E8E3D9",
-  white: "#FFFFFF",
+  textLight: "#F6FFF0",
 
-  // Additional Dark Shades
-  darkOverlay: "#243126",
-  darkCard: "#F3EEE7",
-  darkBorder: "#D9D2C5",
+  // Borders
+  border: "#E2E8E5",
+  divider: "#E8ECE8",
+  benefits:"#5C9724",
 
-  // Lighter Variants
-  primaryLight: "#9DB596",
-  secondaryLight: "#7A9B76",
-  accentLight: "#E6C29A",
-  goldLight: "#E1C45A",
-  textLight: "#4B5A4D",
+  // Status
+  success: "#4CAF50",
+  warning: "#F4B400",
+  error: "#EF4444",
+  info: "#38BDF8",
 
-  // Semantic Colors
-  success: "#7A9B76",
-  error: "#DC2626",
-  warning: "#D4A373",
-  info: "#6BA6A8",
+  // Gold
+  gold: "#D6A300",
 
-  // Overlay & Transparency
-  overlayLight: "rgba(122,155,118,0.12)",
-  overlayMedium: "rgba(255,255,255,0.70)",
-  overlayDark: "rgba(47,58,48,0.08)",
-  overlayGold: "rgba(212,163,115,0.12)",
+  // Overlays
+  overlayLight: "rgba(146,210,86,0.12)",
+  overlayMedium: "rgba(255,255,255,0.75)",
+  overlayDark: "rgba(0,0,0,0.08)",
 
-  // Component-Specific
-  buttonBackground: "#7A9B76",
+  // Components
+  buttonBackground: "#92D256",
+  buttonPressed: "#74B83D",
   buttonText: "#FFFFFF",
-  featureBullet: "#5C7A57",
-  circleGradientBg: "rgba(122,155,118,0.12)",
-  circleGradientBgSecondary: "rgba(212,163,115,0.10)",
-  divider: "#E8E3D9",
 
-  gradientPrimary: ["#9DB596", "#5C7A57"] as const,
-  gradientAccent: ["#E6C29A", "#D4A373"] as const,
-  gradientGold: ["#E1C45A", "#C9A227"] as const,
+  circleGradientBg: "rgba(146,210,86,0.12)",
+  circleGradientBgSecondary: "rgba(180,227,127,0.12)",
 
-  // Grocery Board Card
-  boardCard: "#7A9B76",
-  boardCardDark: "#5C7A57",
+  // CTA
+  ctaWrap: "#92D256",
+  ctaWrapDark: "#74B83D",
+  ctaGlow: "rgba(146,210,86,0.30)",
+
+  // Grocery Board
+  boardCard: "#92D256",
+  boardCardDark: "#74B83D",
   boardText: "#FFFFFF",
   boardTrack: "rgba(255,255,255,0.30)",
-  boardShadow: "rgba(122,155,118,0.28)",
+  boardShadow: "rgba(146,210,86,0.25)",
+
+  // Gradients
+  gradientPrimary: ["#B4E37F", "#92D256", "#74B83D"] as const,
+  gradientAccent: ["#EAF8D8", "#C9EA9A"] as const,
+  gradientGold: ["#F6D75D", "#D6A300"] as const,
+  gradientwhite: ["#FFFFFF", "#F8FFF1", "#EAF8D8"] as const,
+  gradientPrimaryLight: [
+  "#FFFFFF",
+  "#F6FFF0",
+  "#EAF8D8",
+] as const,
+
+  // Priority Colors
+priorityLow: "#1D4ED8",
+priorityLowLight: "rgba(59, 130, 246, 0.15)",
+priorityLowBorder: "rgba(29, 78, 216, 0.35)",
+
+priorityMedium: "#B45309",
+priorityMediumLight: "rgba(245, 158, 11, 0.15)",
+priorityMediumBorder: "rgba(180, 83, 9, 0.35)",
+
+priorityHigh: "#B91C1C",
+priorityHighLight: "rgba(239, 68, 68, 0.15)",
+priorityHighBorder: "rgba(185, 28, 28, 0.35)",
 };

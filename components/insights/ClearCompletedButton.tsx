@@ -6,7 +6,7 @@ import { FONTS } from "@/constants/FONTS";
 const styles = StyleSheet.create({
   button: {
     borderRadius: 16,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.secondary,
     paddingVertical: 12,
     paddingHorizontal: 16,
   },
